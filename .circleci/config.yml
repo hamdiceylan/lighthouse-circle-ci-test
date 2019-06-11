@@ -5,7 +5,7 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: yarn build
+      - run: yarn install && yarn build
   test:
     docker:
       - image: circleci/node:latest
