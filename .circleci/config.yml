@@ -6,12 +6,33 @@ jobs:
     steps:
       - checkout
       - run: yarn install && yarn test 
-      - run: yarn add lighthouse-ci
-      - run: yarn add lighthouse
-      - run: lighthouse https://your.md 
-      - run: lighthouse-ci --performance=40 https://your.md 
+  perfTests:
+    parallelism: 2
+    docker:
+      - image: kporras07/lighthouse-ci
+
+    steps:
+      - checkout
+
+      - run:
+          name: Run lighthouse against staging deployment
+
+          environment:
+            TEST_URL: https://your.md
+
+          command: |
+            lighthouse $TEST_URL \
+              --port=9222 \
+              --chrome-flags=\"--headless\" \
+              --output=html
+      - persist_to_workspace:
+          root: /home/chrome
+          paths:
+            - reports
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
+      - perfTests
+
