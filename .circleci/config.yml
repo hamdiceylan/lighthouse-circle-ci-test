@@ -21,7 +21,7 @@ jobs:
             TEST_URL: https://your.md
 
           command: |
-            lighthouse-ci $TEST_URL --performance=90
+            lighthouse-ci $TEST_URL --performance=55
 
 workflows:
   version: 2
