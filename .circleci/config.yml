@@ -9,22 +9,20 @@ jobs:
   perfTests:
     parallelism: 2
     docker:
-      - image: kporras07/lighthouse-ci
+      - image: guiguidu31300/lighthouse-ci
 
     steps:
       - checkout
 
       - run:
-          name: Run lighthouse against staging deployment
+          name: Run lighthouse against production deployment
 
           environment:
             TEST_URL: https://your.md
 
           command: |
-            lighthouse $TEST_URL \
-              --port=9222 \
-              --chrome-flags=\"--headless\" \
-              --output=html
+            lighthouse-ci $TEST_URL --performance=30
+
       - persist_to_workspace:
           root: /home/chrome
           paths:
