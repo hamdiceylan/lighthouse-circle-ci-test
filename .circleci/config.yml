@@ -6,6 +6,7 @@ jobs:
     steps:
       - checkout
       - run: yarn install && yarn test 
+      - run: yarn add lighthouse-ci
       - run: lighthouse-ci --performance=40 https://your.md 
 workflows:
   version: 2
